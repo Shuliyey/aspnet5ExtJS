@@ -1,187 +1,152 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!--ExtJS Fundamentals Course-->
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <title>Welcome to ASP.NET 5</title>
-    <style>
-        html {
-            background: #f1f1f1;
-            height: 100%;
-        }
+    <title></title>
 
-        body {
-            background: #fff;
-            color: #505050;
-            font: 14px 'Segoe UI', tahoma, arial, helvetica, sans-serif;
-            margin: 1%;
-            min-height: 95.5%;
-            border: 1px solid silver;
-            position: relative;
-        }
+    <link href="http://cdn.sencha.io/ext/gpl/4.2.1/resources/css/ext-all-neptune.css" rel="stylesheet" />
+    <script src="http://cdn.sencha.com/ext/gpl/4.2.1/ext-all.js"></script>
+    <script type="text/javascript">
 
-        #header {
-            padding: 0;
-        }
-
-            #header h1 {
-                font-size: 44px;
-                font-weight: normal;
-                margin: 0;
-                padding: 10px 30px 10px 30px;
-            }
-
-            #header span {
-                margin: 0;
-                padding: 0 30px;
-                display: block;
-            }
-
-            #header p {
-                font-size: 20px;
-                color: #fff;
-                background: #007acc;
-                padding: 0 30px;
-                line-height: 50px;
-                margin-top: 25px;
-
-            }
-
-                #header p a {
-                    color: #fff;
-                    text-decoration: underline;
-                    font-weight: bold;
-                    padding-right: 35px;
-                    background: no-repeat right bottom url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAWCAMAAAAcqPc3AAAANlBMVEUAAAAAeswfitI9mthXp91us+KCvuaTx+mjz+2x1u+83PLH4vTR5/ba7Pjj8Pns9fv1+v3////wy3dWAAAAAXRSTlMAQObYZgAAAHxJREFUeNp9kVcSwCAIRMHUYoH7XzaxOxJ9P8oyQ1uIqNPwh3s2aLmIM2YtqrLcQIeQEylhuCeUOlhgve5yoBCfWmlnlgkN4H8ykbpaE7gR03AbUHiwoOxUH9Xp+ubd41p1HF3mBPrfC87BHeTdaB3ceeKL9HGpcvX9zu6+DdMWT9KQPvYAAAAASUVORK5CYII=);
+        Ext.define('SessionModel', {
+            extend: 'Ext.data.Model',
+            fields: [
+                { name: 'id', type: 'int' },
+                { name: 'title', type: 'string' },
+                { name: 'sessionLevel', type: 'int'},
+                { name: 'approved', type: 'bool', defaultValue: false }
+            ],
+            validations: [
+                { type: 'length', field: 'title', min: 3 },
+                { type: 'inclusion', field: 'sessionLevel', list: [1, 2, 3] }
+            ],
+            proxy: {
+                type: 'rest',
+                url: '/api/session',
+                reader: {
+                    type: 'json'
                 }
-
-        #main {
-            padding: 5px 30px;
-            clear: both;
-        }
-
-        .section {
-            width: 21.7%;
-            float: left;
-            margin: 0 0 0 4%;
-        }
-
-            .section h2 {
-                font-size: 13px;
-                text-transform: uppercase;
-                margin: 0;
-                border-bottom: 1px solid silver;
-                padding-bottom: 12px;
-                margin-bottom: 8px;
             }
+        });
 
-            .section.first {
-                margin-left: 0;
-            }
+        var mySession = Ext.create("SessionModel", {
+            title: 'C',
+            sessionLevel: 4,
+            approved: true
+        })
 
-                .section.first h2 {
-                    font-size: 24px;
-                    text-transform: none;
-                    margin-bottom: 25px;
-                    border: none;
-                }
+        mySession.save();
 
-                .section.first li {
-                    border-top: 1px solid silver;
-                    padding: 8px 0;
-                }
+        // debugger;
+        // var mySession = Ext.create("SessionModel", {
+        //     title: 'C++',
+        //     sessionLevel: 2
+        // });
 
-            .section.last {
-                margin-right: 0;
-            }
+        // if (!mySession.isValid()) {
+        //     var errors = mySession.validate();
+        //     errors.items.forEach(function(element, index) {
+        //         console.log(element);
+        //     });
+        // } else {
+        //     debugger;
+        // }
+        // var mySession2 = Ext.create("SessionModel", {
+        //     title: 'C#',
+        //     sessionLevel: 3
+        // });
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            line-height: 20px;
-        }
+        // var myC = Ext.create("Ext.Component", {
+        //     html: 'component1'
+        // });
 
-        li {
-            padding: 4px 0;
-        }
+        // var myD = Ext.create("Ext.Component", {
+        //     html: 'component2'
+        // });
 
-        a {
-            color: #267cb2;
-            text-decoration: none;
-        }
+        // var myF = Ext.create("Ext.Component", {
+        //     html: 'component3'
+        // });
 
-            a:hover {
-                text-decoration: underline;
-            }
+        // var myContainer = Ext.create("Ext.container.Container", {
+        //     items: [myC, myD, myF],
+        //     layout: 'vbox'
+        // });
 
-        #footer {
-            clear: both;
-            padding-top: 50px;
-        }
-
-            #footer p {
-                position: absolute;
-                bottom: 10px;
-            }
-    </style>
+        // Ext.application({
+        //     name: 'MyApp',
+        //     launch: function () {
+        //         Ext.create('Ext.container.Viewport', {
+        //             items: [
+        //                 myContainer,
+        //                 {
+        //                     xtype: 'button',
+        //                     text: 'disable',
+        //                     handler: function () {
+        //                         this.up().down("#myComponent").disable()
+        //                     }
+        //                 },
+        //                 {
+        //                     xtype: 'button',
+        //                     text: 'enable',
+        //                     handler: function () {
+        //                         this.up().down("#myComponent").enable()
+        //                     }
+        //                 },
+        //                 {
+        //                     xtype: 'button',
+        //                     text: 'hide',
+        //                     handler: function () {
+        //                         this.up().down("#myComponent").hide()
+        //                     }
+        //                 },
+        //                 {
+        //                     xtype: 'button',
+        //                     text: 'show',
+        //                     handler: function () {
+        //                         this.up().down("#myComponent").show()
+        //                     }
+        //                 },
+        //                 {
+        //                     html: 'My First ExtJS Application',
+        //                     padding: 20
+        //                 },
+        //                 {
+        //                     itemId: "myComponent",
+        //                     padding: 20,
+        //                     tpl: 'name: {first} {last}',
+        //                     data: {
+        //                         first: 'David',
+        //                         last: 'Ye'
+        //                     },
+        //                     width: 200,
+        //                     height: 200,
+        //                     resizable: true,
+        //                     listener: {
+        //                         resize: {
+        //                             fn: function (component, width, height) {
+        //                                 console.log("w/h: " + width + " " + height);
+        //                             }
+        //                         }
+        //                     },
+        //                     style: {
+        //                         border: '2px solid red'
+        //                     }
+        //                 }
+        //             ]
+        //         });
+        //     }
+        // });
+    </script>
 </head>
+
+
 <body>
 
-    <div id="header">
-        <h1>Welcome to ASP.NET 5</h1>
-        <span>
-            We've made some big updates in this release, so it’s <b>important</b> that you spend
-            a few minutes to learn what’s new.
-        </span>
-        <p>You've created a new ASP.NET 5 project. <a href="http://go.microsoft.com/fwlink/?LinkId=518016">Learn what's new</a></p>
-    </div>
+    <div id="MyDivId">
 
-    <div id="main">
-        <div class="section first">
-            <h2>This application consists of:</h2>
-            <ul>
-                <li>Sample pages using ASP.NET MVC 6</li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=518007">Gulp</a> and <a href="http://go.microsoft.com/fwlink/?LinkId=518004">Bower</a> for managing client-side libraries</li>
-                <li>Theming using <a href="http://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-            </ul>
-        </div>
-        <div class="section">
-            <h2>How to</h2>
-            <ul>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=699562">Add an appsetting in config and access it in app.</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=699318">Add client packages using Bower.</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-            </ul>
-        </div>
-        <div class="section">
-            <h2>Overview</h2>
-            <ul>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET 5</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET 5 such as Startup and middleware.</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-            </ul>
-        </div>
-        <div class="section last">
-            <h2>Run & Deploy</h2>
-            <ul>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=517852">Run your app on .NET Core</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=517853">Run commands in your project.json</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-            </ul>
-        </div>
-
-        <div id="footer">
-            <p>We would love to hear your <a href="http://go.microsoft.com/fwlink/?LinkId=518015">feedback</a></p>
-        </div>
     </div>
 
 </body>

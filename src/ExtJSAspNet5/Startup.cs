@@ -40,13 +40,7 @@ namespace ExtJSAspNet5
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes => {
-                routes.MapRoute(
-                    "Default",
-                    "",
-                    new { controller = "Home", action = "Index" }
-                );
-            });
+            app.UseMvc();
         }
 
         // Entry point for the application.
