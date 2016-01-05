@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using ExtJSAspNet5.Models;
+using Microsoft.AspNet.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,18 +12,15 @@ namespace ExtJSAspNet5.Controllers
     public class SessionController : Controller
     {
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<SessionItem> Get()
         {
-            return new string[] { "session0", "session1" };
+            return Enumerable.Empty<SessionItem>();
         }
 
         [HttpPost("{id}")]
-        public void Post (int id, [FromBody]string value)
+        public SessionItem Post (int id, [FromBody]SessionItem value)
         {
-            var test = this.Request.Body;
-            var test2 = new MemoryStream();
-            test.Read(test2.ToArray(), 0, 1);
-            this.Response.StatusCode = 201;
+            return value;
         }
     }
 }
